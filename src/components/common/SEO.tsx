@@ -1,21 +1,12 @@
 import React from "react";
 import Head from "next/head";
-
-type SEOProps = {
-  title: string;
-  description: string;
-  keywords?: string;
-  author?: string;
-  ogImage?: string;
-  ogUrl?: string;
-  twitterCard?: string;
-};
+import { SEOProps } from "@/types";
 
 const SEO: React.FC<SEOProps> = ({
   title,
   description,
   keywords,
-  author = "Sivagnanam",
+  author = "Sivagnanam V",
   ogImage,
   ogUrl,
   twitterCard = "summary_large_image",

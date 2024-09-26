@@ -1,20 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface Document {
-  id: string;
-  name: string;
-  pdf: string | null;
-}
-
-interface Application {
-  id: string;
-  name: string;
-  documents: Document[];
-}
-
-interface AppState {
-  applications: Application[];
-}
+import { Document, Application, AppState } from "@/types";
 
 const initialState: AppState = {
   applications: [],

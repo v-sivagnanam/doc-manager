@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Link, IconButton, Container } from "@mui/material";
+import { Box, Typography, IconButton, Container } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
           backgroundColor: "#070c27",
           color: "#fff",
           py: 2,
-          mt: 16,
+          mt: "300px",
         }}
       >
         <Container maxWidth="lg">
@@ -53,7 +53,7 @@ const Footer: React.FC = () => {
               </IconButton>
               <IconButton
                 aria-label="LinkedIn"
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/sivagnanam-v-b4a89422b"
                 target="_blank"
                 sx={{ color: "#fff" }}
               >
@@ -61,7 +61,7 @@ const Footer: React.FC = () => {
               </IconButton>
               <IconButton
                 aria-label="GitHub"
-                href="https://github.com"
+                href="https://github.com/v-sivagnanam/doc-manager"
                 target="_blank"
                 sx={{ color: "#fff" }}
               >

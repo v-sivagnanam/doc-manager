@@ -1,15 +1,25 @@
-export interface Project {
-  title: string;
-  description: string;
-  imageUrl: string;
-  techStack: string[];
-  githubUrl: string;
-  liveDemoUrl: string;
-  projectUrl: string;
+export interface Document {
+  id: string;
+  name: string;
+  pdf: string | null;
 }
 
-export interface ContactForm {
+export interface Application {
+  id: string;
   name: string;
-  email: string;
-  message: string;
+  documents: Document[];
 }
+
+export interface AppState {
+  applications: Application[];
+}
+
+export interface  SEOProps{
+  title: string;
+  description: string;
+  keywords?: string;
+  author?: string;
+  ogImage?: string;
+  ogUrl?: string;
+  twitterCard?: string;
+};

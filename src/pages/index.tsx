@@ -14,7 +14,7 @@ const HomePage: React.FC = () => {
     author: "Sivagnanam",
     ogImage:
       "https://media.licdn.com/dms/image/v2/D5635AQHYC_dmGSAU_A/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1713274135674?e=1727971200&v=beta&t=5kpoYMISj1XiN6SLNG_T5qfPARo1iF3bXCl5mrUiREs",
-    ogUrl: "www.linkedin.com/in/sivagnanam-v-b4a89422b",
+    ogUrl: "https://www.linkedin.com/in/sivagnanam-v-b4a89422b",
   };
 
   return (
