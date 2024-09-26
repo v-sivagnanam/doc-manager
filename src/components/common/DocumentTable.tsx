@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "@/store/store";
-import { v4 as uuidv4 } from "uuid"; // Import uuid for unique ID generation
+import { v4 as uuidv4 } from "uuid";
 import {
   addApplication,
   removeApplication,
@@ -42,7 +42,6 @@ export const DocumentManager: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const docsPerPage = 5;
 
-  // Handle adding a new application
   const handleAddApplication = () => {
     if (newAppName.trim()) {
       const newApp = { id: uuidv4(), name: newAppName, documents: [] };
@@ -52,29 +51,26 @@ export const DocumentManager: React.FC = () => {
     }
   };
 
-  // Handle removing an application
   const handleRemoveApplication = (appId: string) => {
     dispatch(removeApplication(appId));
     setSelectedAppId(null);
   };
 
-  // Handle adding a new document name
   const handleAddDocumentName = () => {
     if (selectedAppId && newDocName.trim()) {
       const newDoc = { id: uuidv4(), name: newDocName, pdf: null };
       setSelectedDocId(newDoc.id);
       dispatch(addDocumentName({ appId: selectedAppId, doc: newDoc }));
-      setNewDocName(""); // Reset input
+      setNewDocName("");
     }
   };
 
-  // Handle removing a document name
-  const handleRemoveDocumentName = (appId: any, docId: string) => {
+  // FIXED: Specify the correct type (string) for appId
+  const handleRemoveDocumentName = (appId: string, docId: string) => {
     dispatch(removeDocumentName({ appId, docId }));
     setSelectedDocId(null);
   };
 
-  // Handle PDF upload for a specific document name
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && selectedAppId && selectedDocId) {
       const file = event.target.files[0];
@@ -87,19 +83,17 @@ export const DocumentManager: React.FC = () => {
             pdfName: fileName,
           })
         );
-        event.target.value = ""; // Reset input
+        event.target.value = "";
       } else {
         alert("Please upload a valid PDF file.");
       }
     }
   };
 
-  // Handle removing the PDF
   const handleRemovePdf = (appId: string, docId: string) => {
     dispatch(removePdfFromDocument({ appId, docId }));
   };
 
-  // Handle pagination change
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
     page: number
@@ -113,7 +107,6 @@ export const DocumentManager: React.FC = () => {
         Application Document Manager
       </Typography>
 
-      {/* Application Input and Add Button */}
       <Box mb={2} display="flex" alignItems="center" gap={2}>
         <TextField
           label="New Application Name"
@@ -126,7 +119,6 @@ export const DocumentManager: React.FC = () => {
         </Button>
       </Box>
 
-      {/* If no applications found */}
       {applications.length === 0 && (
         <Typography variant="body1" color="textSecondary" align="center">
           No applications found.
@@ -153,7 +145,7 @@ export const DocumentManager: React.FC = () => {
                     edge="end"
                     aria-label="delete"
                     onClick={() => handleRemoveApplication(app.id)}
-                    sx={{ color: "red" }} // Red color for delete icon
+                    sx={{ color: "red" }}
                   >
                     <DeleteIcon />
                   </IconButton>
@@ -162,7 +154,6 @@ export const DocumentManager: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* If no documents in selected application */}
             {applications.find((app) => app.id === selectedAppId)?.documents
               .length === 0 && (
               <TableRow>
@@ -178,7 +169,6 @@ export const DocumentManager: React.FC = () => {
               </TableRow>
             )}
 
-            {/* List of document names */}
             {applications
               .find((app) => app.id === selectedAppId)
               ?.documents.slice(
@@ -202,9 +192,9 @@ export const DocumentManager: React.FC = () => {
                       edge="end"
                       aria-label="delete"
                       onClick={() =>
-                        handleRemoveDocumentName(selectedAppId, doc.id)
+                        handleRemoveDocumentName(selectedAppId!, doc.id)
                       }
-                      sx={{ color: "red" }} // Red color for delete icon
+                      sx={{ color: "red" }}
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -220,11 +210,10 @@ export const DocumentManager: React.FC = () => {
                           </Typography>
                           <IconButton
                             onClick={() =>
-                              handleRemovePdf(selectedAppId, doc.id)
+                              handleRemovePdf(selectedAppId!, doc.id)
                             }
                           >
-                            <DeleteIcon sx={{ color: "red" }} />{" "}
-                            {/* Red delete icon */}
+                            <DeleteIcon sx={{ color: "red" }} />
                           </IconButton>
                           <Button
                             variant="contained"
@@ -247,7 +236,6 @@ export const DocumentManager: React.FC = () => {
                 </TableRow>
               ))}
             <TableRow>
-              {/* Document Name Input */}
               {applications.length > 0 && (
                 <TableCell colSpan={applications.length}>
                   <Box display="flex" alignItems="center" gap={2}>
@@ -261,8 +249,6 @@ export const DocumentManager: React.FC = () => {
                       onClick={handleAddDocumentName}
                       sx={{ color: "green" }}
                     >
-                      {" "}
-                      {/* Green color for check icon */}
                       <CheckIcon />
                     </IconButton>
                   </Box>
@@ -270,7 +256,6 @@ export const DocumentManager: React.FC = () => {
               )}
             </TableRow>
 
-            {/* Pagination for document names */}
             <TableRow>
               <TableCell colSpan={2} align="center">
                 <Pagination
