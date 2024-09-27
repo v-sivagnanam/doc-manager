@@ -1,20 +1,24 @@
-export interface Document {
+interface Document {
   id: string;
   name: string;
-  pdf: string | null;
+  pdf?: string;
 }
 
-export interface Application {
+interface Application {
   id: string;
   name: string;
   documents: Document[];
 }
 
-export interface AppState {
+interface ApplicationsState {
   applications: Application[];
+  selectedAppId: string | null;
+  selectedDocIndex: number;
+  currentPage: number;
+  docsPerPage: number;
 }
 
-export interface  SEOProps{
+export interface SEOProps {
   title: string;
   description: string;
   keywords?: string;
@@ -22,4 +26,14 @@ export interface  SEOProps{
   ogImage?: string;
   ogUrl?: string;
   twitterCard?: string;
-};
+}
+
+export interface ApplicationsState {
+  applications: Application[];
+  selectedAppId: string | null;
+  selectedDocIndex: number;
+}
+
+export interface RootState {
+  applications: ApplicationsState;
+}
