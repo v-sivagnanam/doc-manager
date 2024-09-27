@@ -19,12 +19,11 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
-import DeleteIcon from "@mui/icons-material/Delete"; // Import Delete icon
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Application, Document, RootState } from "@/types/index";
 
 export const DocumentManager: React.FC = () => {
   const dispatch = useDispatch();
-
   const applications = useSelector(
     (state: RootState) => state.applications.applications
   );
@@ -88,11 +87,7 @@ export const DocumentManager: React.FC = () => {
           <Typography variant="h6" gutterBottom>
             Document Manager
           </Typography>
-          <Box
-            display="flex"
-            flexDirection={{ xs: "column", sm: "row" }}
-            gap={1}
-          >
+          <Box display="flex" gap={1}>
             <TextField
               size="small"
               label="New Application Name"
@@ -116,9 +111,9 @@ export const DocumentManager: React.FC = () => {
           <Typography variant="h6" gutterBottom>
             Applications
           </Typography>
-          <Box display="flex" flexDirection="column" gap={1}>
+          <Box display="flex" flexDirection="row" gap={1} flexWrap="wrap">
             {applications.map((app: Application) => (
-              <Box key={app.id} display="flex" justifyContent="space-between">
+              <Box key={app.id} display="flex" alignItems="center">
                 <Button
                   variant="outlined"
                   onClick={() => dispatch(selectApplication(app.id))}
@@ -126,8 +121,6 @@ export const DocumentManager: React.FC = () => {
                     backgroundColor:
                       selectedAppId === app.id ? "#223354" : "transparent",
                     color: selectedAppId === app.id ? "#fff" : "inherit",
-                    justifyContent: "flex-start",
-                    flexGrow: 1,
                     mr: 1,
                   }}
                 >
@@ -155,51 +148,41 @@ export const DocumentManager: React.FC = () => {
               {applications
                 .find((app: Application) => app.id === selectedAppId)
                 ?.documents.map((doc: Document, index: number) => (
-                  <>
-                    <Box
-                      key={doc.id}
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        backgroundColor:
-                          index === selectedDocIndex
-                            ? "#223354"
-                            : "transparent",
-                        color: index === selectedDocIndex ? "#fff" : "inherit",
-                        padding: 1,
-                        borderRadius: 1,
-                        cursor: "pointer",
-                      }}
-                      onClick={() => {
-                        dispatch(selectApplication(selectedAppId));
-                        dispatch(setDocIndex(index));
-                      }}
-                    >
-                      <Typography>{doc.name}</Typography>
-                      <Box display="flex" alignItems="center">
-                        <IconButton color="info" component="label">
-                          <UploadFileIcon />
-                          <input
-                            type="file"
-                            hidden
-                            onChange={handleFileChange}
-                          />
-                        </IconButton>
-                        <Typography variant="body2">
-                          {doc.pdf ? doc.pdf : "No PDF uploaded"}
-                        </Typography>
-                      </Box>
-                      <Box>
-                        <IconButton
-                          onClick={() => handleDeleteDocument(index)}
-                          color="error"
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </Box>
+                  <Box
+                    key={doc.id}
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      backgroundColor:
+                        index === selectedDocIndex ? "#223354" : "transparent",
+                      color: index === selectedDocIndex ? "#fff" : "inherit",
+                      padding: 1,
+                      borderRadius: 1,
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      dispatch(selectApplication(selectedAppId));
+                      dispatch(setDocIndex(index));
+                    }}
+                  >
+                    <Typography>{doc.name}</Typography>
+                    <Box display="flex" alignItems="center">
+                      <IconButton color="info" component="label">
+                        <UploadFileIcon />
+                        <input type="file" hidden onChange={handleFileChange} />
+                      </IconButton>
+                      <Typography variant="body2">
+                        {doc.pdf ? doc.pdf : "No PDF uploaded"}
+                      </Typography>
                     </Box>
-                  </>
+                    <IconButton
+                      onClick={() => handleDeleteDocument(index)}
+                      color="error"
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </Box>
                 ))}
               <Box mb={2} display="flex" gap={1}>
                 <TextField

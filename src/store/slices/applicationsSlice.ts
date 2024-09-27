@@ -14,11 +14,14 @@ const applicationsSlice = createSlice({
   initialState,
   reducers: {
     addApplication(state, action: PayloadAction<string>) {
+      const idRandom = (Math.random() * 1000).toString();
       state.applications.push({
-        id: (Math.random() * 1000).toString(),
+        id: idRandom,
         name: action.payload,
         documents: [],
       });
+      state.selectedAppId = idRandom;
+      state.selectedDocIndex = 0;
     },
     removeApplication: (state, action) => {
       const appId = action.payload;
@@ -31,10 +34,13 @@ const applicationsSlice = createSlice({
       const { appId, docName } = action.payload;
       const application = state.applications.find((app) => app.id === appId);
       if (application) {
-        application.documents.push({
+        const newDocument = {
           id: (Math.random() * 1000).toString(),
           name: docName,
-        });
+        };
+        application.documents.push(newDocument);
+        const newDocIndex = application.documents.length - 1;
+        state.selectedDocIndex = newDocIndex;
       }
     },
     removeDocument: (state, action) => {
